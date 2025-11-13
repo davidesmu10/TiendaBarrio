@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>My Store</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Products</a>
+            <a href="orders.html">My Orders</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Checkout</h2>
+        <form id="checkout-form">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="address">Dirección:</label>
+            <input type="text" id="address" name="address" required>
+            <br>
+            <label for="payment">Método de pago:</label>
+            <select id="payment" name="payment">
+                <option value="cash_on_delivery" selected>Pago al Recibir</option>
+            </select>
+            <br>
+            <button type="submit">Confirmar Pedido</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Store</p>
+    </footer>
+
+    <script src="orders.js"></script>
+</body>
+</html>
