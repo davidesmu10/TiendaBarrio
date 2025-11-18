@@ -1,203 +1,203 @@
 const products = [
     {
         id: 1,
-        name: 'Laptop Gamer Pro',
-        price: 1299.99,
+        name: 'Leche Alquería',
+        price: 2800,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=1',
-        category: 'Electrónica',
-        rating: 4.8,
-        description: 'Potente laptop para gaming con procesador de última generación y tarjeta gráfica dedicada.'
+        image: 'https://placeimg.com/640/480/any?id=1',
+        category: 'Lácteos y Huevos',
+        rating: 4.5,
+        description: 'Bolsa de Leche Entera Alquería de 1 litro.'
     },
     {
         id: 2,
-        name: 'Smartphone X',
-        price: 799.99,
+        name: 'Huevos AA',
+        price: 6000,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=2',
-        category: 'Electrónica',
-        rating: 4.5,
-        description: 'El último smartphone con una cámara increíble y una pantalla OLED vibrante.'
+        image: 'https://placeimg.com/640/480/any?id=2',
+        category: 'Lácteos y Huevos',
+        rating: 4.8,
+        description: 'Canasta de 30 huevos AA.'
     },
     {
         id: 3,
-        name: 'Audífonos Inalámbricos',
-        price: 149.99,
-        stock: 'agotado',
-        image: 'https://placeimg.com/640/480/tech?id=3',
-        category: 'Accesorios',
+        name: 'Pan Rollo',
+        price: 1500,
+        stock: 'visible',
+        image: 'https://placeimg.com/640/480/any?id=3',
+        category: 'Panadería',
         rating: 4.2,
-        description: 'Audífonos con cancelación de ruido y una batería de larga duración.'
+        description: 'Bolsa de 6 panes rollo frescos.'
     },
     {
         id: 4,
-        name: 'Teclado Mecánico RGB',
-        price: 89.99,
+        name: 'Queso Campesino',
+        price: 7000,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=4',
-        category: 'Accesorios',
+        image: 'https://placeimg.com/640/480/any?id=4',
+        category: 'Lácteos y Huevos',
         rating: 4.9,
-        description: 'Teclado mecánico con interruptores personalizables y retroiluminación RGB.'
+        description: 'Bloque de 500g de queso campesino fresco.'
     },
     {
         id: 5,
-        name: 'Monitor Curvo 27"',
-        price: 349.99,
+        name: 'Salchichón Cervecero',
+        price: 9000,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=5',
-        category: 'Electrónica',
+        image: 'https://placeimg.com/640/480/any?id=5',
+        category: 'Carnes y embutidos',
         rating: 4.6,
-        description: 'Monitor curvo para una experiencia de visualización inmersiva.'
+        description: 'Salchichón cervecero Zenu de 500g.'
     },
     {
         id: 6,
-        name: 'Silla Ergonómica de Oficina',
-        price: 249.99,
+        name: 'Arroz Diana',
+        price: 4500,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/arch?id=6',
-        category: 'Muebles',
+        image: 'https://placeimg.com/640/480/any?id=6',
+        category: 'Abarrotes',
         rating: 4.7,
-        description: 'Silla de oficina ergonómica para mantener una buena postura durante todo el día.'
+        description: 'Bolsa de 1kg de Arroz Diana.'
     },
     {
         id: 7,
-        name: 'Mochila para Laptop',
-        price: 49.99,
+        name: 'Frijol Cargamanto',
+        price: 5500,
         stock: 'visible',
         image: 'https://placeimg.com/640/480/any?id=7',
-        category: 'Accesorios',
+        category: 'Abarrotes',
         rating: 4.4,
-        description: 'Mochila resistente al agua con compartimentos para todos tus dispositivos.'
+        description: 'Bolsa de 500g de frijol cargamanto.'
     },
     {
         id: 8,
-        name: 'Cafetera de Goteo Programable',
-        price: 59.99,
+        name: 'Panela',
+        price: 3000,
         stock: 'agotado',
         image: 'https://placeimg.com/640/480/any?id=8',
-        category: 'Hogar',
+        category: 'Abarrotes',
         rating: 4.1,
-        description: 'Prepara tu café antes de despertar con esta cafetera programable.'
+        description: 'Bloque de 500g de panela.'
     },
     {
         id: 9,
-        name: 'Libro de Ciencia Ficción',
-        price: 15.99,
+        name: 'Sal Refisal',
+        price: 1200,
         stock: 'visible',
         image: 'https://placeimg.com/640/480/any?id=9',
-        category: 'Libros',
+        category: 'Abarrotes',
         rating: 4.9,
-        description: 'La última novela de tu autor de ciencia ficción favorito.'
+        description: 'Bolsa de 500g de sal Refisal.'
     },
     {
         id: 10,
-        name: 'Juego de Mesa Estratégico',
-        price: 39.99,
+        name: 'Aceite Premier',
+        price: 8000,
         stock: 'visible',
         image: 'https://placeimg.com/640/480/any?id=10',
-        category: 'Juegos',
+        category: 'Abarrotes',
         rating: 4.8,
-        description: 'Un juego de mesa que pondrá a prueba tu pensamiento estratégico.'
+        description: 'Botella de 1 litro de aceite Premier.'
     },
     {
         id: 11,
-        name: 'Cámara de Seguridad Inteligente',
-        price: 129.99,
+        name: 'Café Sello Rojo',
+        price: 10000,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=11',
-        category: 'Seguridad',
+        image: 'https://placeimg.com/640/480/any?id=11',
+        category: 'Abarrotes',
         rating: 4.3,
-        description: 'Vigila tu hogar desde cualquier lugar con esta cámara de seguridad inteligente.'
+        description: 'Bolsa de 500g de café Sello Rojo molido.'
     },
     {
         id: 12,
-        name: 'Robot Aspirador',
-        price: 299.99,
+        name: 'Galletas Saltín Noel',
+        price: 3500,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=12',
-        category: 'Hogar',
+        image: 'https://placeimg.com/640/480/any?id=12',
+        category: 'Abarrotes',
         rating: 4.7,
-        description: 'Mantén tus suelos limpios sin esfuerzo con este robot aspirador.'
+        description: 'Taco de 3 galletas Saltín Noel.'
     },
     {
         id: 13,
-        name: 'Botella de Agua Inteligente',
-        price: 29.99,
+        name: 'Pony Malta',
+        price: 2500,
         stock: 'agotado',
         image: 'https://placeimg.com/640/480/any?id=13',
-        category: 'Deportes',
+        category: 'Bebidas',
         rating: 4.0,
-        description: 'Esta botella de agua te recuerda cuándo es el momento de hidratarte.'
+        description: 'Botella de 330ml de Pony Malta.'
     },
     {
         id: 14,
-        name: 'Set de Mancuernas Ajustables',
-        price: 199.99,
+        name: 'Cerveza Águila',
+        price: 3000,
         stock: 'visible',
         image: 'https://placeimg.com/640/480/any?id=14',
-        category: 'Deportes',
+        category: 'Bebidas',
         rating: 4.6,
-        description: 'Ahorra espacio con este set de mancuernas ajustables.'
+        description: 'Botella de 330ml de cerveza Águila.'
     },
     {
         id: 15,
-        name: 'Licuadora de Alta Potencia',
-        price: 89.99,
+        name: 'Agua Cristal',
+        price: 2000,
         stock: 'visible',
         image: 'https://placeimg.com/640/480/any?id=15',
-        category: 'Hogar',
+        category: 'Bebidas',
         rating: 4.5,
-        description: 'Prepara batidos y sopas en segundos con esta licuadora de alta potencia.'
+        description: 'Botella de 600ml de agua Cristal sin gas.'
     },
     {
         id: 16,
-        name: 'Proyector Portátil',
-        price: 179.99,
+        name: 'Plátano Hartón',
+        price: 1500,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=16',
-        category: 'Electrónica',
+        image: 'https://placeimg.com/640/480/any?id=16',
+        category: 'Frutas y verduras',
         rating: 4.2,
-        description: 'Convierte cualquier habitación en un cine en casa con este proyector portátil.'
+        description: 'Un plátano hartón verde.'
     },
     {
         id: 17,
-        name: 'Altavoz Bluetooth Resistente al Agua',
-        price: 49.99,
+        name: 'Tomate Chonto',
+        price: 2000,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=17',
-        category: 'Accesorios',
+        image: 'https://placeimg.com/640/480/any?id=17',
+        category: 'Frutas y verduras',
         rating: 4.7,
-        description: 'Lleva tu música a todas partes con este altavoz Bluetooth resistente al agua.'
+        description: 'Una libra de tomate chonto.'
     },
     {
         id: 18,
-        name: 'Tableta Gráfica para Dibujo',
-        price: 99.99,
+        name: 'Pechuga de Pollo',
+        price: 12000,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=18',
-        category: 'Accesorios',
+        image: 'https://placeimg.com/640/480/any?id=18',
+        category: 'Carnes y embutidos',
         rating: 4.4,
-        description: 'Da rienda suelta a tu creatividad con esta tableta gráfica para dibujo.'
+        description: 'Una pechuga de pollo sin piel y sin hueso.'
     },
     {
         id: 19,
-        name: 'Cargador Inalámbrico Rápido',
-        price: 39.99,
+        name: 'Carne para Sudar',
+        price: 15000,
         stock: 'agotado',
-        image: 'https://placeimg.com/640/480/tech?id=19',
-        category: 'Accesorios',
+        image: 'https://placeimg.com/640/480/any?id=19',
+        category: 'Carnes y embutidos',
         rating: 4.1,
-        description: 'Carga tus dispositivos compatibles de forma rápida y sin cables.'
+        description: 'Una libra de carne de res para sudar.'
     },
     {
         id: 20,
-        name: 'Auriculares de Diadema con Micrófono',
-        price: 79.99,
+        name: 'Bocadillo Veleño',
+        price: 1000,
         stock: 'visible',
-        image: 'https://placeimg.com/640/480/tech?id=20',
-        category: 'Accesorios',
+        image: 'https://placeimg.com/640/480/any?id=20',
+        category: 'Dulces',
         rating: 4.5,
-        description: 'Ideales para reuniones en línea y para escuchar música con una calidad de sonido superior.'
+        description: 'Un bocadillo veleño individual.'
     }
 ];
 
