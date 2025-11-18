@@ -3,67 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+    <title>Detalles del Producto</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>My Store</h1>
+        <h1>Detalles del Producto</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="index.html#products">Products</a>
-            <a href="orders.html">My Orders</a>
+            <a href="index.html">Inicio</a>
+            <a href="products.html">Productos</a>
+            <a href="orders.html">Pedidos</a>
         </nav>
     </header>
 
-    <main>
-        <div id="product-details">
-            <!-- Product details will be loaded here -->
-        </div>
-
-        <div id="reviews">
-            <h2>Reviews</h2>
-            <div id="review-summary"></div>
-            <form id="review-form">
-                <h3>Leave a Review</h3>
-                <label for="rating">Rating:</label>
-                <input type="number" id="rating" name="rating" min="1" max="5" required>
-                <br>
-                <label for="comment">Comment:</label>
-                <textarea id="comment" name="comment" required></textarea>
-                <br>
-                <button type="submit">Submit Review</button>
-            </form>
-            <div id="review-list">
-                <!-- Reviews will be loaded here -->
-            </div>
+    <main id="product-detail">
+        <img id="product-image" src="" alt="Product Image">
+        <div id="product-info">
+            <h2 id="product-name"></h2>
+            <p id="product-price"></p>
+            <p id="product-description"></p>
+            <p id="product-stock"></p>
+            <p id="product-category"></p>
+            <p id="product-rating"></p>
+            <button>Añadir al Carrito</button>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 My Store</p>
-    </footer>
-
     <script src="products.js"></script>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = parseInt(urlParams.get('id'));
-        const product = products.find(p => p.id === productId);
-
-        if (product) {
-            const productDetails = document.getElementById('product-details');
-            productDetails.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" style="max-width: 400px;">
-                <h2>${product.name}</h2>
-                <p>$${product.price.toFixed(2)}</p>
-                <p>Stock: ${product.stock}</p>
-                <p>Category: ${product.category}</p>
-                <p>Rating: ${product.rating}</p>
-                <button onclick="location.href='checkout.html?id=${product.id}'">Añadir y Pedir</button>
-            `;
-        } else {
-            // Handle product not found
-        }
-    </script>
 </body>
 </html>
