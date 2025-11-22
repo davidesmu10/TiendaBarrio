@@ -208,13 +208,13 @@ function displayProducts(productsToDisplay) {
     productsToDisplay.forEach(product => {
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
+        productCard.dataset.productId = product.id;
 
         productCard.innerHTML = `
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p>$${product.price.toFixed(2)}</p>
-            <p>Stock: ${product.stock}</p>
-            <button onclick="location.href='product.html?id=${product.id}'">Ver Detalles</button>
+            <button class="add-to-cart">Add to Cart</button>
         `;
 
         productCatalog.appendChild(productCard);
@@ -225,7 +225,7 @@ function getProductById(id) {
     return products.find(product => product.id === id);
 }
 
-// Para la página de detalles del producto
+// For product detail page
 if (window.location.pathname.endsWith('product.html')) {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get('id'));
@@ -237,7 +237,7 @@ if (window.location.pathname.endsWith('product.html')) {
         document.getElementById('product-price').textContent = `$${product.price.toFixed(2)}`;
         document.getElementById('product-description').textContent = product.description;
         document.getElementById('product-stock').textContent = `Stock: ${product.stock}`;
-        document.getElementById('product-category').textContent = `Categoría: ${product.category}`;
+        document.getElementById('product-category').textContent = `Category: ${product.category}`;
         document.getElementById('product-rating').textContent = `Rating: ${product.rating}`;
     }
 } else {

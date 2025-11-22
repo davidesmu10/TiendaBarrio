@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - Tienda de Barrio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tienda de Barrio</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="products.html">Productos</a>
+            <a href="orders.html">Pedidos</a>
+            <a href="checkout.html">Carrito</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Procesar Pago</h2>
+        <form id="payment-form">
+            <label for="card-name">Nombre en la Tarjeta</label>
+            <input type="text" id="card-name" required>
+
+            <label for="card-number">Número de Tarjeta</label>
+            <input type="text" id="card-number" required>
+
+            <label for="expiry-date">Fecha de Expiración</label>
+            <input type="text" id="expiry-date" placeholder="MM/YY" required>
+
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" required>
+
+            <button type="submit">Pagar</button>
+        </form>
+    </main>
+
+    <script src="checkout.js"></script>
+</body>
+</html>
