@@ -15,20 +15,22 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    @Transactional(readOnly = true)
+    // Se elimina (readOnly = true) para permitir la llamada a procedimientos almacenados.
+    @Transactional
     public List<Producto> obtenerTodosLosProductos() {
         return productoRepository.sp_get_all_products();
     }
 
-    @Transactional(readOnly = true)
+    // Se elimina (readOnly = true) para permitir la llamada a procedimientos almacenados.
+    @Transactional
     public Optional<Producto> obtenerProductoPorId(Long id) {
         Producto producto = productoRepository.sp_get_product_by_id(id);
         return Optional.ofNullable(producto);
     }
 
+    // Las transacciones de escritura ya estaban correctas (sin readOnly=true).
     @Transactional
     public Producto crearProducto(Producto producto) {
-        // El procedimiento de creación devuelve el ID del nuevo producto
         Integer newId = productoRepository.sp_create_product(
             producto.getNombre(),
             producto.getDescripcion(),
