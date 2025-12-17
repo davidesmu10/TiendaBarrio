@@ -14,11 +14,23 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
+    // Usa el método estándar de JpaRepository
     public List<Producto> obtenerProductos() {
-        return productoRepository.sp_get_all_products();
+        return productoRepository.findAll();
     }
 
+    // Usa el método estándar de JpaRepository
     public Optional<Producto> obtenerProductoPorId(Long id) {
-        return Optional.ofNullable(productoRepository.sp_get_product_by_id(id));
+        return productoRepository.findById(id);
+    }
+
+    // Añadimos métodos para crear, actualizar y borrar, usando los métodos estándar
+
+    public Producto guardarProducto(Producto producto) {
+        return productoRepository.save(producto);
+    }
+
+    public void eliminarProducto(Long id) {
+        productoRepository.deleteById(id);
     }
 }
