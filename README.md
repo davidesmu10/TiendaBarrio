@@ -6,5 +6,10 @@ This is a minimal Java API service starter based on [Google Cloud Run Quickstart
 
 Server should run automatically when starting a workspace. To run manually, run:
 ```sh
-mvn spring-boot:run
+mvn s<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+pring-boot:run
 ```

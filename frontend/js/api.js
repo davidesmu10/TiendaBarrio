@@ -1,5 +1,9 @@
 const API_URL = "http://localhost:8080/api";
 
+export async function getHello() {
+    return fetch(API_URL + '/hello').then(r => r.text());
+}
+
 export async function apiGet(url) {
     return fetch(API_URL + url).then(r => r.json());
 }
