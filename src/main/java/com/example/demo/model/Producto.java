@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,8 +21,8 @@ public class Producto {
     private String imagenUrl;
     private double ratingPromedio;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id") // Esto crea la columna para la clave foránea
+    @ManyToOne(fetch = FetchType.EAGER) // Cambiado a EAGER
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     // Getters y Setters
