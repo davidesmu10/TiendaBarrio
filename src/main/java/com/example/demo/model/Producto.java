@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Producto {
@@ -14,10 +16,15 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private double precio;
-    private String categoria;
     private int stock;
     private String imagenUrl;
     private double ratingPromedio;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id") // Esto crea la columna para la clave foránea
+    private Categoria categoria;
+
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -51,14 +58,6 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
     public int getStock() {
         return stock;
     }
@@ -81,5 +80,13 @@ public class Producto {
 
     public void setRatingPromedio(double ratingPromedio) {
         this.ratingPromedio = ratingPromedio;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
