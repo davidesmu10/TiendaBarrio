@@ -15,10 +15,10 @@ public class ProductoService {
     private ProductoRepository productoRepository;
 
     public List<Producto> obtenerProductos() {
-        return productoRepository.findAll();
+        return productoRepository.sp_get_all_products();
     }
 
     public Optional<Producto> obtenerProductoPorId(Long id) {
-        return productoRepository.findById(id);
+        return Optional.ofNullable(productoRepository.sp_get_product_by_id(id));
     }
 }

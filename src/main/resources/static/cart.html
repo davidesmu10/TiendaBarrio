@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">Tienda del Barrio</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/cart.html" class="cart-icon">&#128722; <span id="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2>Tu Carrito de Compras</h2>
+        <div id="cart-items-container">
+            <!-- Los productos del carrito se insertarán aquí -->
+        </div>
+
+        <div id="cart-summary">
+            <h3>Resumen del Pedido</h3>
+            <p>Subtotal: <span id="subtotal">$0.00</span></p>
+            <p>Envío: <span id="shipping">$5.00</span></p>
+            <h4>Total: <span id="total">$5.00</span></h4>
+        </div>
+
+        <div id="checkout-form-container">
+            <h3>Información de Envío</h3>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="customer-name">Nombre Completo</label>
+                    <input type="text" id="customer-name" name="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-address">Dirección de Envío</label>
+                    <input type="text" id="customer-address" name="customer-address" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+            </form>
+        </div>
+
+        <div id="order-confirmation" class="hidden">
+            <h2>¡Gracias por tu compra!</h2>
+            <p>Tu pedido ha sido realizado con éxito.</p>
+            <p>En breve recibirás una confirmación.</p>
+            <a href="/" class="btn">Seguir Comprando</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tienda del Barrio</p>
+    </footer>
+
+    <script src="/js/cart.js"></script>
+</body>
+</html>

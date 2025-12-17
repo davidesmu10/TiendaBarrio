@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Barrio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Tienda del Barrio</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <header>
-        <h1>Tienda de Barrio</h1>
+        <h1><a href="/">Tienda del Barrio</a></h1>
         <nav>
-            <a href="index.html">Inicio</a>
-            <a href="products.html">Productos</a>
-            <a href="orders.html">Pedidos</a>
-            <a href="checkout.html">Carrito</a>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/cart.html" class="cart-icon">&#128722; <span id="cart-count">0</span></a></li>
+            </ul>
         </nav>
     </header>
 
-    <main>
-        <h2>Bienvenidos a la Tienda de Barrio</h2>
-        <p>Tu tienda de confianza para los productos de todos los días.</p>
-        <div id="product-catalog"></div>
+    <main class="container">
+        <h2>Nuestros Productos</h2>
+        <div id="product-list" class="product-grid">
+            <!-- Los productos se cargarán aquí dinámicamente -->
+        </div>
     </main>
 
-    <script src="products.js"></script>
-    <script src="cart.js"></script>
+    <footer>
+        <p>&copy; 2024 Tienda del Barrio</p>
+    </footer>
+
+    <script src="/js/script.js"></script>
 </body>
 </html>

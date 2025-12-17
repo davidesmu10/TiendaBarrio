@@ -14,10 +14,18 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     public Pedido crearPedido(Pedido pedido) {
-        return pedidoRepository.save(pedido);
+        // El procedimiento almacenado sp_create_order devuelve el ID del nuevo pedido.
+        Integer newId = pedidoRepository.sp_create_order(
+            pedido.getNombreCliente(), 
+            pedido.getDireccionCliente(), 
+            pedido.getTotal()
+        );
+        // Asignamos el nuevo ID al objeto y lo devolvemos.
+        pedido.setId(newId.longValue());
+        return pedido;
     }
 
     public List<Pedido> obtenerPedidosCliente(String nombreCliente) {
-        return pedidoRepository.findByNombreCliente(nombreCliente);
+        return pedidoRepository.sp_get_orders_by_customer_name(nombreCliente);
     }
 }

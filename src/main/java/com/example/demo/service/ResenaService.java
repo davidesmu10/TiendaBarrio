@@ -13,11 +13,20 @@ public class ResenaService {
     @Autowired
     private ResenaRepository resenaRepository;
 
-    public List<Resena> obtenerResenas(Long idProducto) {
-        return resenaRepository.findByIdProducto(idProducto);
+    public Resena crearResena(Resena resena) {
+        resenaRepository.sp_create_review(
+            resena.getProducto().getId(),
+            resena.getNombreCliente(),
+            resena.getCalificacion(),
+            resena.getComentario()
+        );
+        // A diferencia de pedidos, el SP de reseñas no devuelve un ID,
+        // por lo que devolvemos el objeto original. 
+        // Considerar ajustar el SP si se necesita el ID de vuelta.
+        return resena;
     }
 
-    public Resena crearResena(Resena resena) {
-        return resenaRepository.save(resena);
+    public List<Resena> obtenerResenasPorProducto(Long productoId) {
+        return resenaRepository.sp_get_reviews_by_product_id(productoId);
     }
 }
