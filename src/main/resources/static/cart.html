@@ -24,14 +24,14 @@
             <!-- Los productos del carrito se insertarán aquí dinámicamente -->
         </div>
 
-        <div id="cart-summary">
+        <div id="cart-summary" style="display: none;">
             <h3>Resumen del Pedido</h3>
-            <p>Subtotal: <span id="subtotal">$0.00</span></p>
-            <p>Envío: <span id="shipping">$0.00</span></p>
-            <h4>Total: <span id="total">$0.00</span></h4>
+            <p>Subtotal: <span id="subtotal">$0</span></p>
+            <p>Envío: <span id="shipping">$0</span></p>
+            <h4>Total: <span id="total">$0</span></h4>
         </div>
 
-        <div id="checkout-form-container">
+        <div id="checkout-form-container" style="display: none;">
             <h3>Información para el Envío</h3>
             <form id="checkout-form">
                 <div class="form-group">
@@ -57,6 +57,7 @@
         <p>&copy; 2024 Tienda de Barrio</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/cart.js"></script>
 </body>
 </html>

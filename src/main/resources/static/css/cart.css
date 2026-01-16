@@ -1,44 +1,61 @@
-/* cart.css */
-
-#cart-items-container .cart-item {
+/* Estilos para el carrito de compras */
+.cart-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
     padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
 }
 
-#cart-items-container .cart-item img {
-    width: 100px;
-    height: 100px;
+.cart-item img {
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    margin-right: 20px;
     border-radius: 8px;
+    margin-right: 20px;
 }
 
-#cart-items-container .item-details {
+.cart-item .item-details {
     flex-grow: 1;
 }
 
-#cart-items-container .item-details h4 {
-    margin: 0 0 10px 0;
+.cart-item .item-details h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
 }
 
-#cart-items-container .item-quantity {
+.cart-item .price {
+    color: #555;
+}
+
+.item-quantity {
     display: flex;
     align-items: center;
+    margin: 0 20px;
 }
 
-#cart-items-container .item-quantity button {
+.item-quantity span {
+    padding: 0 15px;
+    font-size: 1.2em;
+}
+
+.quantity-change, .remove-item {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
-    padding: 5px 10px;
+    border-radius: 50%;
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    line-height: 28px;
+    text-align: center;
 }
 
-#cart-items-container .item-quantity span {
-    padding: 0 15px;
-    font-weight: bold;
+.remove-item {
+    background-color: #ffdddd;
+    color: #c00;
+    border-color: #ffb8b8;
 }
 
 #cart-summary {
@@ -46,41 +63,59 @@
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    text-align: right;
+    border: 1px solid #eee;
 }
 
 #checkout-form-container {
     margin-top: 30px;
-    padding: 20px;
-    border: 1px solid #eee;
-    border-radius: 8px;
 }
 
-#checkout-form-container .form-group {
-    margin-bottom: 15px;
-}
-
-#checkout-form-container label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#checkout-form-container input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#order-confirmation {
+.empty-cart-message {
     text-align: center;
-    padding: 50px 20px;
-    border: 2px dashed #4CAF50;
-    background-color: #f0fff0;
+    padding: 50px;
+    background-color: #f9f9f9;
     border-radius: 8px;
-    margin-top: 30px;
 }
 
-.hidden {
-    display: none;
+/* Notificaciones */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+    z-index: 1000;
+}
+
+.notification.show {
+    opacity: 1;
+    bottom: 40px;
+}
+
+/* Pop-up de Pasarela de Pago (SweetAlert2) */
+.payment-popup .swal2-radio {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 1em 0;
+}
+
+.payment-popup .swal2-radio label {
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.payment-popup .swal2-radio input:checked + label {
+    background-color: #e0f2ff;
+    border-color: #007bff;
 }
