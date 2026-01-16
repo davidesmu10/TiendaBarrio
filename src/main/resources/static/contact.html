@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Tienda de Barrio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -12,35 +15,33 @@
         <nav>
             <a href="index.html">Inicio</a>
             <a href="products.html">Productos</a>
-            <a href="contact.html">Contacto</a>
+            <a href="contact.html" class="active">Contacto</a>
             <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
         </nav>
     </header>
 
     <main class="container">
-        <h2>Información de Contacto y Domicilios</h2>
-        
-        <div class="contact-info">
-            <h3>Gerente General</h3>
-            <p>Jimena Otalvaro</p>
-            
-            <h3>Teléfono de Contacto</h3>
-            <p>+57 300 123 4567</p>
-            
-            <h3>Ubicación</h3>
-            <p>San Pablo - Tamesis, Antioquia</p>
-        </div>
-        
-        <div class="delivery-info">
-            <h3>¡Domicilios Gratis!</h3>
-            <p>Disfruta de envío gratuito en compras a partir de $30.000 COP.</p>
+        <h2>Ponte en Contacto</h2>
+        <div class="contact-info-grid">
+            <div class="contact-card">
+                <h3>📍 Dirección</h3>
+                <p>Calle Principal 123, Támesis, Antioquia</p>
+            </div>
+            <div class="contact-card">
+                <h3>📞 Teléfono / WhatsApp</h3>
+                <p>+57 300 123 4567</p>
+            </div>
+            <div class="contact-card">
+                <h3>⏰ Horario</h3>
+                <p>Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 Tienda de Barrio</p>
+        <p>&copy; 2024 Tienda de Barrio. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="js/cart.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>

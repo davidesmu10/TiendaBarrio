@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras - Tienda de Barrio</title>
+    <title>Carrito - Tienda de Barrio</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -14,50 +16,21 @@
             <a href="index.html">Inicio</a>
             <a href="products.html">Productos</a>
             <a href="contact.html">Contacto</a>
-            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+            <a href="cart.html" class="cart-icon active">🛒 <span id="cart-count">0</span></a>
         </nav>
     </header>
 
     <main class="container">
-        <h2>Tu Carrito de Compras</h2>
-        <div id="cart-items-container">
-            <!-- Los productos del carrito se insertarán aquí dinámicamente -->
-        </div>
-
-        <div id="cart-summary" style="display: none;">
-            <h3>Resumen del Pedido</h3>
-            <p>Subtotal: <span id="subtotal">$0</span></p>
-            <p>Envío: <span id="shipping">$0</span></p>
-            <h4>Total: <span id="total">$0</span></h4>
-        </div>
-
-        <div id="checkout-form-container" style="display: none;">
-            <h3>Información para el Envío</h3>
-            <form id="checkout-form">
-                <div class="form-group">
-                    <label for="customer-name">Nombre Completo</label>
-                    <input type="text" id="customer-name" name="customer-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="customer-address">Dirección de Envío</label>
-                    <input type="text" id="customer-address" name="customer-address" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Finalizar Compra</button>
-            </form>
-        </div>
-
-        <div id="order-confirmation" class="hidden">
-            <h2>¡Gracias por tu compra!</h2>
-            <p>Tu pedido ha sido realizado con éxito y será procesado en breve.</p>
-            <a href="index.html" class="btn">Seguir Comprando</a>
+        <h2>Tu Carrito</h2>
+        <div class="cart-page">
+            <!-- El contenido del carrito/checkout se genera aquí -->
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 Tienda de Barrio</p>
+        <p>&copy; 2024 Tienda de Barrio. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/cart.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
