@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/cart.css">
+    <title>Carrito de Compras - Tienda de Barrio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
     <header>
-        <h1><a href="/">Tienda del Barrio</a></h1>
+        <h1><a href="index.html">Tienda de Barrio</a></h1>
         <nav>
-            <ul>
-                <li><a href="/">Inicio</a></li>
-                <li><a href="/cart.html" class="cart-icon">&#128722; <span id="cart-count">0</span></a></li>
-            </ul>
+            <a href="index.html">Inicio</a>
+            <a href="products.html">Productos</a>
+            <a href="contact.html">Contacto</a>
+            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
         </nav>
     </header>
 
     <main class="container">
         <h2>Tu Carrito de Compras</h2>
         <div id="cart-items-container">
-            <!-- Los productos del carrito se insertarán aquí -->
+            <!-- Los productos del carrito se insertarán aquí dinámicamente -->
         </div>
 
         <div id="cart-summary">
             <h3>Resumen del Pedido</h3>
             <p>Subtotal: <span id="subtotal">$0.00</span></p>
-            <p>Envío: <span id="shipping">$5.00</span></p>
-            <h4>Total: <span id="total">$5.00</span></h4>
+            <p>Envío: <span id="shipping">$0.00</span></p>
+            <h4>Total: <span id="total">$0.00</span></h4>
         </div>
 
         <div id="checkout-form-container">
-            <h3>Información de Envío</h3>
+            <h3>Información para el Envío</h3>
             <form id="checkout-form">
                 <div class="form-group">
                     <label for="customer-name">Nombre Completo</label>
@@ -48,16 +48,15 @@
 
         <div id="order-confirmation" class="hidden">
             <h2>¡Gracias por tu compra!</h2>
-            <p>Tu pedido ha sido realizado con éxito.</p>
-            <p>En breve recibirás una confirmación.</p>
-            <a href="/" class="btn">Seguir Comprando</a>
+            <p>Tu pedido ha sido realizado con éxito y será procesado en breve.</p>
+            <a href="index.html" class="btn">Seguir Comprando</a>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 Tienda del Barrio</p>
+        <p>&copy; 2024 Tienda de Barrio</p>
     </footer>
 
-    <script src="/js/cart.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>

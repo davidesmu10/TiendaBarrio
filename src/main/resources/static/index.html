@@ -3,77 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Barrio Verde</title>
+    <title>Tienda de Barrio</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script> <!-- Opcional para iconos -->
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-leaf"></i> <!-- Icono de hoja -->
-                <h1>Tienda de Barrio Verde</h1>
-            </div>
-            <nav>
-                <a href="#productos">Productos</a>
-                <a href="#categorias">Categorías</a>
-                <a href="#">Contacto</a>
-            </nav>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-counter">0</span>
-            </div>
-        </div>
+    <header>
+        <h1><a href="index.html">Tienda de Barrio</a></h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="products.html">Productos</a>
+            <a href="contact.html">Contacto</a>
+            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+        </nav>
     </header>
 
     <main class="container">
-        <section class="hero">
-            <div class="hero-text">
-                <h2>Productos Frescos y de Calidad</h2>
-                <p>Directo de la comunidad a tu hogar. Apoya el comercio local.</p>
-                <a href="#productos" class="btn-primary">Ver todos los productos</a>
-            </div>
+        <section id="hero">
+            <h2>¡Bienvenido a tu Tienda de Barrio!</h2>
+            <p>Productos frescos y de calidad, directo a tu puerta.</p>
+            <a href="products.html" class="btn">Ver Productos</a>
         </section>
 
-        <section id="categorias" class="categories-section">
-            <h2>Nuestras Categorías</h2>
-            <div id="category-container" class="category-container">
-                <!-- Las categorías se cargarán aquí dinámicamente con JS -->
-            </div>
+        <section id="featured-products">
+            <h3>Productos Destacados</h3>
+            <div id="product-catalog-index"></div>
         </section>
-
-        <section id="productos" class="products-section">
-            <div class="products-header">
-                <h2>Todos los Productos</h2>
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Buscar producto...">
-                </div>
-            </div>
-            <div id="product-grid" class="product-grid">
-                <!-- Los productos se cargarán aquí dinámicamente con JS -->
-                 <div class="product-card-placeholder"></div>
-                 <div class="product-card-placeholder"></div>
-                 <div class="product-card-placeholder"></div>
-                 <div class="product-card-placeholder"></div>
-            </div>
-        </section>
-
     </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2025 Tienda de Barrio Verde. Todos los derechos reservados.</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2024 Tienda de Barrio</p>
     </footer>
-
-    <script src="scripts.js"></script>
+    
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>

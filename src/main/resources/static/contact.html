@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto y Domicilios - Tienda de Barrio</title>
+    <title>Contacto - Tienda de Barrio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Tienda de Barrio</h1>
+        <h1><a href="index.html">Tienda de Barrio</a></h1>
         <nav>
             <a href="index.html">Inicio</a>
             <a href="products.html">Productos</a>
-            <a href="orders.html">Pedidos</a>
-            <a href="cart.html">Carrito</a>
-            <a href="checkout.html">Contacto</a>
+            <a href="contact.html">Contacto</a>
+            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
         </nav>
     </header>
 
-    <main>
+    <main class="container">
         <h2>Información de Contacto y Domicilios</h2>
         
         <div class="contact-info">
@@ -26,22 +25,22 @@
             <p>Jimena Otalvaro</p>
             
             <h3>Teléfono de Contacto</h3>
-            <p>+57 300 123 4567</p>
+            <p>+57 300 123 4567 (Teléfono Falso)</p>
             
             <h3>Ubicación</h3>
-            <p>San Pablo - Tamesis</p>
+            <p>San Pablo - Tamesis, Antioquia</p>
         </div>
         
         <div class="delivery-info">
             <h3>¡Domicilios Gratis!</h3>
-            <p>Disfruta de envío gratuito en compras a partir de $30.000.</p>
+            <p>Disfruta de envío gratuito en compras a partir de $30.000 COP.</p>
         </div>
-
-        <div id="cart-items"></div>
-        <h3>Total: $<span id="cart-total">0.00</span></h3>
-        <button id="checkout-button">Confirmar Pedido</button>
     </main>
 
-    <script src="cart.js"></script>
+    <footer>
+        <p>&copy; 2024 Tienda de Barrio</p>
+    </footer>
+
+    <script src="js/cart.js"></script>
 </body>
 </html>
