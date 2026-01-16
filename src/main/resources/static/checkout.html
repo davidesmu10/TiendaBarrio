@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito - Tienda de Barrio</title>
+    <title>Contacto y Domicilios - Tienda de Barrio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,15 +13,33 @@
             <a href="index.html">Inicio</a>
             <a href="products.html">Productos</a>
             <a href="orders.html">Pedidos</a>
-            <a href="checkout.html">Carrito</a>
+            <a href="cart.html">Carrito</a>
+            <a href="checkout.html">Contacto</a>
         </nav>
     </header>
 
     <main>
-        <h2>Tu Carrito de Compras</h2>
+        <h2>Información de Contacto y Domicilios</h2>
+        
+        <div class="contact-info">
+            <h3>Gerente General</h3>
+            <p>Jimena Otalvaro</p>
+            
+            <h3>Teléfono de Contacto</h3>
+            <p>+57 300 123 4567</p>
+            
+            <h3>Ubicación</h3>
+            <p>San Pablo - Tamesis</p>
+        </div>
+        
+        <div class="delivery-info">
+            <h3>¡Domicilios Gratis!</h3>
+            <p>Disfruta de envío gratuito en compras a partir de $30.000.</p>
+        </div>
+
         <div id="cart-items"></div>
         <h3>Total: $<span id="cart-total">0.00</span></h3>
-        <button id="checkout-button">Pagar</button>
+        <button id="checkout-button">Confirmar Pedido</button>
     </main>
 
     <script src="cart.js"></script>

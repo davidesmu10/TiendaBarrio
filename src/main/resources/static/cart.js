@@ -7,16 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCart() {
         cartItemsContainer.innerHTML = '';
         let total = 0;
-        cart.forEach((item, index) => {
-            const itemElement = document.createElement('div');
-            itemElement.innerHTML = `
-                <span>${item.name}</span>
-                <span>$${item.price.toFixed(2)}</span>
-                <button class="remove-from-cart" data-index="${index}">Remove</button>
-            `;
-            cartItemsContainer.appendChild(itemElement);
-            total += item.price;
-        });
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p>Tu carrito está vacío.</p>';
+        } else {
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>$${item.price.toFixed(2)}</span>
+                    <button class="remove-from-cart" data-index="${index}">Eliminar</button>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+                total += item.price;
+            });
+        }
         cartTotal.textContent = total.toFixed(2);
         localStorage.setItem('cart', JSON.stringify(cart));
 
@@ -35,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
     }
 
-    // This is a simplified example. In a real application, you would fetch product details.
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -46,14 +50,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 price: parseFloat(productCard.querySelector('p').textContent.replace('$', ''))
             };
             addToCart(product);
-            alert(`${product.name} has been added to your cart.`);
+            alert(`${product.name} ha sido añadido al carrito.`);
         });
     });
 
     if (checkoutButton) {
         checkoutButton.addEventListener('click', () => {
-            // Redirect to a checkout page or handle payment processing
-            window.location.href = 'checkout.html';
+            if (cart.length > 0) {
+                // Simulate a successful order
+                localStorage.removeItem('cart');
+                alert('¡Gracias por su compra! Su pedido ha sido confirmado.');
+                window.location.href = 'confirmation.html';
+            } else {
+                alert('Tu carrito está vacío.');
+            }
         });
     }
 
