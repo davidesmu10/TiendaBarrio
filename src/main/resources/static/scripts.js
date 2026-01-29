@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allProducts = [];
 
-    // --- CARGA DE DATOS (Estilo Original) ---
+    // --- LÓGICA DE CARGA Y RENDERIZADO ---
 
     // 1. Cargar todos los productos desde la API
-    async function fetchProducts() {
+    async function fetchProductsAndCategories() {
         try {
             const response = await fetch('/api/productos');
             if (!response.ok) {
@@ -29,31 +29,35 @@ document.addEventListener('DOMContentLoaded', () => {
             if (freshProductsContainer) { // Solo en la página de inicio
                 displayProducts(allProducts.slice(4, 8), freshProductsContainer);
             }
+
+            // ¡NUEVA LÓGICA! Extraer categorías de los productos cargados
+            if (categoryFilters) {
+                extractAndDisplayCategories(allProducts);
+            }
+
         } catch (error) {
             console.error('Hubo un problema al cargar los productos:', error);
             if(productGrid) productGrid.innerHTML = '<p>No se pudieron cargar los productos. Inténtalo más tarde.</p>';
         }
     }
 
-    // 2. Cargar todas las categorías desde la API
-    async function fetchCategories() {
-        if (!categoryFilters) return; // Solo se ejecuta en la página de productos
-        try {
-            const response = await fetch('/api/categorias');
-            if (!response.ok) {
-                throw new Error('La respuesta de la red no fue correcta');
+    // 2. Extraer y mostrar categorías a partir de la lista de productos
+    function extractAndDisplayCategories(products) {
+        // Usamos un Map para asegurar que cada categoría sea única por su ID
+        const categoriesMap = new Map();
+        products.forEach(product => {
+            if (product.category) { // Asegurarse de que el producto tiene categoría
+                categoriesMap.set(product.category.id, product.category);
             }
-            const categories = await response.json();
-            displayCategories(categories);
-        } catch (error) {
-            console.error('Hubo un problema al cargar las categorías:', error);
-        }
+        });
+        const uniqueCategories = Array.from(categoriesMap.values());
+        
+        displayCategories(uniqueCategories);
     }
-
-    // --- RENDERIZADO Y FILTRADO ---
 
     // 3. Mostrar los productos en un contenedor
     function displayProducts(products, container) {
+        if (!container) return; // Si el contenedor no existe en la página, no hacer nada
         container.innerHTML = '';
         products.forEach(product => {
             const productCard = document.createElement('div');
@@ -70,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(productCard);
         });
 
-        // Añadir listeners a los botones "Agregar al Carrito" recién creados
+        // Añadir listeners a los botones "Agregar al Carrito"
         container.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 const productId = e.target.dataset.productId;
@@ -81,7 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Mostrar los botones de filtro de categoría
     function displayCategories(categories) {
+        if (!categoryFilters) return;
         categoryFilters.innerHTML = '<button class="active" data-category-id="all">Todas</button>';
+        
+        // Ordenar categorías alfabéticamente por nombre
+        categories.sort((a, b) => a.name.localeCompare(b.name));
+
         categories.forEach(category => {
             const button = document.createElement('button');
             button.textContent = category.name;
@@ -98,14 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const categoryId = e.target.dataset.categoryId;
                 const filteredProducts = categoryId === 'all'
                     ? allProducts
-                    : allProducts.filter(p => p.category.id.toString() === categoryId);
+                    : allProducts.filter(p => p.category && p.category.id.toString() === categoryId);
                 
                 displayProducts(filteredProducts, productGrid);
             }
         });
     }
 
-    // --- LÓGICA DEL CARRITO (Conservada) ---
+    // --- LÓGICA DEL CARRITO ---
 
     function addToCart(productId) {
         const productToAdd = allProducts.find(p => p.id.toString() === productId);
@@ -147,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- INICIALIZACIÓN ---
-    fetchProducts();
-    fetchCategories();
+    fetchProductsAndCategories(); // Única llamada para cargar todo
     updateCartCount();
 });
