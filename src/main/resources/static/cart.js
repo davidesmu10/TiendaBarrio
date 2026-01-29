@@ -1,12 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
+    const cartView = document.getElementById('cart-view');
+    const paymentView = document.getElementById('payment-view');
+    const confirmationView = document.getElementById('confirmation-view');
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const summarySubtotal = document.getElementById('summary-subtotal');
+    const summaryTotal = document.getElementById('summary-total');
     const checkoutButton = document.getElementById('checkout-button');
+    const paymentForm = document.getElementById('payment-form');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     function updateCart() {
         cartItemsContainer.innerHTML = '';
-        let total = 0;
+        let subtotal = 0;
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p>Tu carrito está vacío.</p>';
         } else {
@@ -14,19 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('cart-item');
                 itemElement.innerHTML = `
-                    <span>${item.name}</span>
-                    <span>$${item.price.toFixed(2)}</span>
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>$${item.price.toFixed(2)}</p>
+                    </div>
                     <button class="remove-from-cart" data-index="${index}">Eliminar</button>
                 `;
                 cartItemsContainer.appendChild(itemElement);
-                total += item.price;
+                subtotal += item.price;
             });
         }
-        cartTotal.textContent = total.toFixed(2);
+
+        const shipping = 5.00;
+        const total = subtotal + shipping;
+        summarySubtotal.textContent = `$${subtotal.toFixed(2)}`;
+        summaryTotal.textContent = `$${total.toFixed(2)}`;
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        const removeButtons = document.querySelectorAll('.remove-from-cart');
-        removeButtons.forEach(button => {
+        document.querySelectorAll('.remove-from-cart').forEach(button => {
             button.addEventListener('click', (e) => {
                 const index = e.target.dataset.index;
                 cart.splice(index, 1);
@@ -35,35 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function addToCart(product) {
-        cart.push(product);
-        updateCart();
-    }
-
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const productCard = button.closest('.product-card');
-            const product = {
-                id: productCard.dataset.productId,
-                name: productCard.querySelector('h3').textContent,
-                price: parseFloat(productCard.querySelector('p').textContent.replace('$', ''))
-            };
-            addToCart(product);
-            alert(`${product.name} ha sido añadido al carrito.`);
-        });
-    });
-
     if (checkoutButton) {
         checkoutButton.addEventListener('click', () => {
             if (cart.length > 0) {
-                // Simulate a successful order
-                localStorage.removeItem('cart');
-                alert('¡Gracias por su compra! Su pedido ha sido confirmado.');
-                window.location.href = 'confirmation.html';
+                cartView.style.display = 'none';
+                paymentView.style.display = 'block';
             } else {
                 alert('Tu carrito está vacío.');
             }
+        });
+    }
+
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('cart');
+            paymentView.style.display = 'none';
+            confirmationView.style.display = 'block';
         });
     }
 
