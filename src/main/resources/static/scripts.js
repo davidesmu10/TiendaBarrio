@@ -1,59 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cartCountElement = document.getElementById('cart-count');
+    // --- Selectores de Elementos DOM ---
     const productGrid = document.querySelector('.product-grid');
     const categoryFilters = document.getElementById('category-filters');
+    const cartCountElement = document.getElementById('cart-count');
     const featuredProductsContainer = document.getElementById('featured-products-container');
     const freshProductsContainer = document.getElementById('fresh-products-container');
 
     let allProducts = [];
 
-    // --- Cargar y mostrar productos y categorías ---
+    // --- CARGA DE DATOS (Estilo Original) ---
+
+    // 1. Cargar todos los productos desde la API
     async function fetchProducts() {
         try {
-            // Usar la ruta correcta de la API
             const response = await fetch('/api/productos');
             if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
+                throw new Error('La respuesta de la red no fue correcta');
             }
-            const products = await response.json();
-            allProducts = products;
-
-            // Cargar productos en la página de "Productos"
-            if (productGrid) {
+            allProducts = await response.json();
+            
+            // Decide qué productos mostrar y dónde
+            if (productGrid && !featuredProductsContainer) { // Solo en la página de productos
                 displayProducts(allProducts, productGrid);
             }
-            // Cargar productos en la página de "Inicio"
-            if (featuredProductsContainer) {
-                displayProducts(products.slice(0, 4), featuredProductsContainer);
+            if (featuredProductsContainer) { // Solo en la página de inicio
+                displayProducts(allProducts.slice(0, 4), featuredProductsContainer);
             }
-            if (freshProductsContainer) {
-                displayProducts(products.slice(4, 8), freshProductsContainer);
+            if (freshProductsContainer) { // Solo en la página de inicio
+                displayProducts(allProducts.slice(4, 8), freshProductsContainer);
             }
-
         } catch (error) {
-            console.error("Error al cargar los productos:", error);
-            if (productGrid) productGrid.innerHTML = '<p>No se pudieron cargar los productos. Inténtalo de nuevo más tarde.</p>';
+            console.error('Hubo un problema al cargar los productos:', error);
+            if(productGrid) productGrid.innerHTML = '<p>No se pudieron cargar los productos. Inténtalo más tarde.</p>';
         }
     }
 
+    // 2. Cargar todas las categorías desde la API
     async function fetchCategories() {
-        // Solo ejecutar si estamos en la página de productos
-        if (!categoryFilters) return;
+        if (!categoryFilters) return; // Solo se ejecuta en la página de productos
         try {
-            // Usar la ruta correcta de la API
             const response = await fetch('/api/categorias');
             if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
+                throw new Error('La respuesta de la red no fue correcta');
             }
             const categories = await response.json();
             displayCategories(categories);
         } catch (error) {
-            console.error("Error al cargar las categorías:", error);
+            console.error('Hubo un problema al cargar las categorías:', error);
         }
     }
 
+    // --- RENDERIZADO Y FILTRADO ---
+
+    // 3. Mostrar los productos en un contenedor
     function displayProducts(products, container) {
-        if (!container) return;
         container.innerHTML = '';
         products.forEach(product => {
             const productCard = document.createElement('div');
@@ -70,34 +70,32 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(productCard);
         });
 
-        // Añadir listeners a los botones "Agregar al Carrito"
+        // Añadir listeners a los botones "Agregar al Carrito" recién creados
         container.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                const productId = e.target.getAttribute('data-product-id');
-                const productToAdd = allProducts.find(p => p.id.toString() === productId);
-                if (productToAdd) {
-                    addToCart(productToAdd);
-                }
+                const productId = e.target.dataset.productId;
+                addToCart(productId);
             });
         });
     }
 
+    // 4. Mostrar los botones de filtro de categoría
     function displayCategories(categories) {
         categoryFilters.innerHTML = '<button class="active" data-category-id="all">Todas</button>';
         categories.forEach(category => {
             const button = document.createElement('button');
             button.textContent = category.name;
-            button.setAttribute('data-category-id', category.id);
+            button.dataset.categoryId = category.id;
             categoryFilters.appendChild(button);
         });
 
-        // Manejar clics en los filtros de categoría
+        // Configurar el listener para los filtros
         categoryFilters.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON') {
-                const categoryId = e.target.getAttribute('data-category-id');
                 document.querySelectorAll('#category-filters button').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
-
+                
+                const categoryId = e.target.dataset.categoryId;
                 const filteredProducts = categoryId === 'all'
                     ? allProducts
                     : allProducts.filter(p => p.category.id.toString() === categoryId);
@@ -107,20 +105,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Lógica del Carrito (compatible con cart.js) ---
-    function addToCart(product) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existingProductIndex = cart.findIndex(item => item.id === product.id);
+    // --- LÓGICA DEL CARRITO (Conservada) ---
 
-        if (existingProductIndex > -1) {
-            cart[existingProductIndex].quantity += 1;
+    function addToCart(productId) {
+        const productToAdd = allProducts.find(p => p.id.toString() === productId);
+        if (!productToAdd) return;
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingProduct = cart.find(item => item.id === productToAdd.id);
+
+        if (existingProduct) {
+            existingProduct.quantity++;
         } else {
-            cart.push({ ...product, quantity: 1 });
+            cart.push({ ...productToAdd, quantity: 1 });
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
-        showNotification(`${product.name} ha sido añadido al carrito.`);
+        showNotification(`${productToAdd.name} fue añadido al carrito.`);
     }
 
     function updateCartCount() {
@@ -130,13 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cartCountElement.textContent = totalItems;
         }
     }
-    
+
     function showNotification(message) {
         const notification = document.createElement('div');
         notification.className = 'notification';
         notification.textContent = message;
         document.body.appendChild(notification);
-
+        
         setTimeout(() => notification.classList.add('show'), 10);
         setTimeout(() => {
             notification.classList.remove('show');
@@ -144,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // --- Inicialización ---
+    // --- INICIALIZACIÓN ---
     fetchProducts();
     fetchCategories();
     updateCartCount();
