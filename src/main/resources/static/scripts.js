@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Selectores de Elementos DOM ---
-    const productGrid = document.querySelector('.product-grid');
+    const productGrid = document.querySelector('.product-grid:not(#featured-products-container):not(#fresh-products-container)');
     const categoryFilters = document.getElementById('category-filters');
     const cartCountElement = document.getElementById('cart-count');
     const featuredProductsContainer = document.getElementById('featured-products-container');
@@ -8,74 +8,98 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allProducts = [];
 
-    // --- LÓGICA DE CARGA Y RENDERIZADO ---
+    // --- LÓGICA DE CARGA Y RENDERIZADO (VERSIÓN ESTABLE RESTAURADA) ---
 
     // 1. Cargar todos los productos desde la API
-    async function fetchProductsAndCategories() {
+    async function fetchProducts() {
         try {
             const response = await fetch('/api/productos');
-            if (!response.ok) {
-                throw new Error('La respuesta de la red no fue correcta');
-            }
+            if (!response.ok) throw new Error('La respuesta de la red para productos no fue correcta');
             allProducts = await response.json();
-            
-            // Decide qué productos mostrar y dónde
-            if (productGrid && !featuredProductsContainer) { // Solo en la página de productos
+
+            // Lógica para mostrar productos según la página actual
+            if (productGrid) { // Página de productos
                 displayProducts(allProducts, productGrid);
             }
-            if (featuredProductsContainer) { // Solo en la página de inicio
+            if (featuredProductsContainer) { // Página de inicio
                 displayProducts(allProducts.slice(0, 4), featuredProductsContainer);
             }
-            if (freshProductsContainer) { // Solo en la página de inicio
+            if (freshProductsContainer) { // Página de inicio
                 displayProducts(allProducts.slice(4, 8), freshProductsContainer);
             }
-
-            // ¡NUEVA LÓGICA! Extraer categorías de los productos cargados
-            if (categoryFilters) {
-                extractAndDisplayCategories(allProducts);
-            }
-
         } catch (error) {
             console.error('Hubo un problema al cargar los productos:', error);
-            if(productGrid) productGrid.innerHTML = '<p>No se pudieron cargar los productos. Inténtalo más tarde.</p>';
+            const container = productGrid || featuredProductsContainer || freshProductsContainer;
+            if (container) container.innerHTML = '<p>Error al cargar los productos. Inténtelo más tarde.</p>';
         }
     }
 
-    // 2. Extraer y mostrar categorías a partir de la lista de productos
-    function extractAndDisplayCategories(products) {
-        // Usamos un Map para asegurar que cada categoría sea única por su ID
-        const categoriesMap = new Map();
-        products.forEach(product => {
-            if (product.category) { // Asegurarse de que el producto tiene categoría
-                categoriesMap.set(product.category.id, product.category);
-            }
-        });
-        const uniqueCategories = Array.from(categoriesMap.values());
-        
-        displayCategories(uniqueCategories);
+    // 2. Cargar las categorías desde la API (Método Original)
+    async function fetchCategories() {
+        if (!categoryFilters) return; // Solo se ejecuta si los filtros existen en la página
+        try {
+            const response = await fetch('/api/categorias');
+            if (!response.ok) throw new Error('La respuesta de la red para categorías no fue correcta');
+            const categories = await response.json();
+            displayCategoryFilters(categories);
+        } catch (error) {
+            console.error('Hubo un problema al cargar las categorías:', error);
+        }
     }
 
-    // 3. Mostrar los productos en un contenedor
+    // 3. Mostrar los productos en un contenedor específico
     function displayProducts(products, container) {
-        if (!container) return; // Si el contenedor no existe en la página, no hacer nada
+        if (!container) return;
         container.innerHTML = '';
         products.forEach(product => {
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
+            // Se usa el nombre de la propiedad correcto "nombre" y "precio"
             productCard.innerHTML = `
-                <img src="${product.imageUrl || 'https://via.placeholder.com/300'}" alt="${product.name}">
-                <h3>${product.name}</h3>
-                <p>${product.description}</p>
+                <img src="${product.imagenUrl || 'https://via.placeholder.com/300'}" alt="${product.nombre}">
+                <h3>${product.nombre}</h3>
+                <p>${product.descripcion}</p>
                 <div class="product-card-footer">
-                    <span class="price">$${product.price.toFixed(2)}</span>
+                    <span class="price">$${product.precio.toFixed(2)}</span>
                     <button class="add-to-cart-btn" data-product-id="${product.id}">Agregar al Carrito</button>
                 </div>
             `;
             container.appendChild(productCard);
         });
 
-        // Añadir listeners a los botones "Agregar al Carrito"
-        container.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        // Añadir listeners a los botones del carrito
+        addCartButtonListeners(container);
+    }
+
+    // 4. Mostrar los filtros de categoría y asignarles eventos
+    function displayCategoryFilters(categories) {
+        categoryFilters.innerHTML = '<button class="active" data-category-id="all">Todas</button>';
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.textContent = category.nombre;
+            button.dataset.categoryId = category.id;
+            categoryFilters.appendChild(button);
+        });
+
+        categoryFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelectorAll('#category-filters button').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                const categoryId = e.target.dataset.categoryId;
+                const filtered = categoryId === 'all'
+                    ? allProducts
+                    : allProducts.filter(p => p.categoria && p.categoria.id.toString() === categoryId);
+                
+                displayProducts(filtered, productGrid);
+            }
+        });
+    }
+
+    // --- LÓGICA DEL CARRITO ---
+
+    function addCartButtonListeners(container) {
+         container.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 const productId = e.target.dataset.productId;
                 addToCart(productId);
@@ -83,55 +107,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Mostrar los botones de filtro de categoría
-    function displayCategories(categories) {
-        if (!categoryFilters) return;
-        categoryFilters.innerHTML = '<button class="active" data-category-id="all">Todas</button>';
-        
-        // Ordenar categorías alfabéticamente por nombre
-        categories.sort((a, b) => a.name.localeCompare(b.name));
-
-        categories.forEach(category => {
-            const button = document.createElement('button');
-            button.textContent = category.name;
-            button.dataset.categoryId = category.id;
-            categoryFilters.appendChild(button);
-        });
-
-        // Configurar el listener para los filtros
-        categoryFilters.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') {
-                document.querySelectorAll('#category-filters button').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-                
-                const categoryId = e.target.dataset.categoryId;
-                const filteredProducts = categoryId === 'all'
-                    ? allProducts
-                    : allProducts.filter(p => p.category && p.category.id.toString() === categoryId);
-                
-                displayProducts(filteredProducts, productGrid);
-            }
-        });
-    }
-
-    // --- LÓGICA DEL CARRITO ---
-
     function addToCart(productId) {
-        const productToAdd = allProducts.find(p => p.id.toString() === productId);
-        if (!productToAdd) return;
+        const product = allProducts.find(p => p.id.toString() === productId);
+        if (!product) return;
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existingProduct = cart.find(item => item.id === productToAdd.id);
+        const existingItem = cart.find(item => item.id === product.id);
 
-        if (existingProduct) {
-            existingProduct.quantity++;
+        if (existingItem) {
+            existingItem.quantity++;
         } else {
-            cart.push({ ...productToAdd, quantity: 1 });
+            cart.push({ ...product, quantity: 1 });
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
-        showNotification(`${productToAdd.name} fue añadido al carrito.`);
+        showNotification(`${product.nombre} fue añadido al carrito.`);
     }
 
     function updateCartCount() {
@@ -155,7 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // --- INICIALIZACIÓN ---
-    fetchProductsAndCategories(); // Única llamada para cargar todo
-    updateCartCount();
+    // --- INICIALIZACIÓN DE LA APLICACIÓN ---
+    function init() {
+        fetchProducts();
+        fetchCategories();
+        updateCartCount();
+    }
+
+    init();
 });
