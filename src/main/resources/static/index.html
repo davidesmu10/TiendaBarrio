@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Barrio - Inicio</title>
+    <title>Tienda de Barrio - Frescura y Calidad a tu Puerta</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,20 +20,46 @@
         </nav>
     </header>
 
-    <main class="container">
-        <section id="hero">
-            <h2>Tu tienda de confianza, más cerca que nunca.</h2>
-            <p>Productos frescos y de calidad, entregados en la puerta de tu casa.</p>
-            <a href="products.html" class="btn btn-primary">Ver Productos</a>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Frescura y calidad, <span>directo a tu hogar.</span></h2>
+                <p>Los mejores productos de tu barrio con la comodidad de pedirlos en línea. Rápido, fácil y confiable.</p>
+                <a href="products.html" class="btn btn-primary">Explorar Productos</a>
+            </div>
         </section>
 
-        <section id="featured-products">
-            <h3>Productos Destacados</h3>
+        <section class="container">
+            <div class="features">
+                <div class="feature">
+                    <img src="https://img.icons8.com/pastel-glyph/64/386641/fruit-stand.png" alt="Productos Frescos">
+                    <h3>Productos Frescos</h3>
+                    <p>Seleccionamos los mejores productos locales para ti.</p>
+                </div>
+                <div class="feature">
+                    <img src="https://img.icons8.com/pastel-glyph/64/386641/delivery--v1.png" alt="Entrega Rápida">
+                    <h3>Entrega Rápida</h3>
+                    <p>Recibe tus compras en la puerta de tu casa.</p>
+                </div>
+                <div class="feature">
+                    <img src="https://img.icons8.com/pastel-glyph/64/386641/shop--v1.png" alt="Apoyo Local">
+                    <h3>Apoya lo Local</h3>
+                    <p>Con cada compra, apoyas a los productores de tu comunidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" id="featured-products">
+            <h3>Nuestros Productos Destacados</h3>
             <div id="product-catalog-index" class="product-catalog-index">
-                <!-- Los productos se cargarán aquí -->
+                <!-- Los productos destacados se cargarán aquí dinámicamente -->
             </div>
         </section>
     </main>
+
+    <footer>
+        <p>&copy; 2024 Tienda de Barrio. Todos los derechos reservados.</p>
+    </footer>
 
     <script src="scripts.js"></script>
 </body>
