@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras - Tienda de Barrio</title>
+    <title>Tu Carrito de Compras - Tienda de Barrio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for credit card icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -18,98 +16,40 @@
             <a href="index.html">Inicio</a>
             <a href="products.html">Productos</a>
             <a href="contact.html">Contacto</a>
-            <a href="cart.html" class="cart-icon active">🛒 <span id="cart-count">0</span></a>
+            <a href="cart.html" class="active cart-icon">🛒 <span id="cart-count">0</span></a>
         </nav>
     </header>
 
     <main class="container">
+        <h2>Tu Carrito de Compras</h2>
 
-        <!-- 1. Cart View -->
-        <div id="cart-view">
-            <h2>Tu Carrito de Compras</h2>
-            <div class="cart-page">
-                <div class="cart-items">
-                    <!-- Los artículos del carrito se cargarán aquí -->
+        <div id="cart-page-container">
+            <!-- Mensaje de Carrito Vacío -->
+            <div id="empty-cart-message" style="display: none; text-align: center;">
+                <p>Tu carrito está vacío.</p>
+                <a href="products.html" class="btn btn-primary">Ver productos</a>
+            </div>
+
+            <!-- Contenedor de Items del Carrito -->
+            <div id="cart-items-container"></div>
+
+            <!-- Resumen del Pedido -->
+            <div id="cart-summary" style="display: none;">
+                <h3>Resumen del Pedido</h3>
+                <div class="total-row">
+                    <span>Total</span>
+                    <span id="cart-total">$0.00</span>
                 </div>
-                <div class="cart-summary">
-                    <h3>Resumen del Pedido</h3>
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span id="summary-subtotal">$0.00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Envío</span>
-                        <span>$5.00</span>
-                    </div>
-                    <div class="summary-row summary-total">
-                        <span>Total</span>
-                        <span id="summary-total">$5.00</span>
-                    </div>
-                    <button id="checkout-button" class="btn btn-primary">Proceder al Pago</button>
-                </div>
+                <button class="btn btn-primary btn-checkout">Finalizar Compra</button>
             </div>
         </div>
-
-        <!-- 2. Payment View -->
-        <div id="payment-view" style="display: none;">
-            <div class="payment-container">
-                <form id="payment-form">
-                    <h2>Información de Envío y Pago</h2>
-                    
-                    <!-- Shipping Info -->
-                    <div class="form-group">
-                        <label for="name">Nombre Completo</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Dirección de Envío</label>
-                        <input type="text" id="address" required>
-                    </div>
-
-                    <!-- Payment Info -->
-                    <div class="form-group">
-                        <label for="card-number">Número de Tarjeta</label>
-                        <div class="card-icons">
-                            <i class="fab fa-cc-visa"></i>
-                            <i class="fab fa-cc-mastercard"></i>
-                            <i class="fab fa-cc-amex"></i>
-                        </div>
-                        <input type="text" id="card-number" placeholder="xxxx xxxx xxxx xxxx" required>
-                    </div>
-                    <div class="card-details">
-                        <div class="form-group">
-                            <label for="expiry">Vencimiento</label>
-                            <input type="text" id="expiry" placeholder="MM/AA" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="cvc">CVC</label>
-                            <input type="text" id="cvc" placeholder="123" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Pagar ahora</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- 3. Confirmation View -->
-        <div id="confirmation-view" style="display: none;">
-            <div class="payment-container">
-                <h2 style="color: var(--success-color);">¡Pedido Realizado con Éxito!</h2>
-                <p>Gracias por tu compra. Hemos recibido tu pedido y lo estamos procesando.</p>
-                <p>Recibirás una confirmación por correo electrónico en breve.</p>
-                <a href="index.html" class="btn btn-primary">Volver al Inicio</a>
-            </div>
-        </div>
-
     </main>
 
     <footer>
         <p>&copy; 2024 Tienda de Barrio. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Scripts will manage views and cart logic -->
-    <script src="scripts.js"></script>
+    <!-- ¡LA CONEXIÓN QUE FALTABA! -->
     <script src="cart.js"></script>
 </body>
 </html>
