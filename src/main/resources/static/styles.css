@@ -1,49 +1,29 @@
 /* --- RESET BÁSICO Y FUENTES --- */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-}
+body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: #f9f9f9; color: #333; }
 
 /* --- ENCABEZADO Y NAVEGACIÓN --- */
-header {
-    background-color: #fff;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
+header { background-color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
 header h1 a { font-size: 1.8rem; font-weight: 700; color: #e54d2e; text-decoration: none; }
 nav a { margin: 0 1rem; text-decoration: none; color: #555; font-weight: 500; transition: color 0.3s ease; }
 nav a.active, nav a:hover { color: #e54d2e; }
 .cart-icon { font-size: 1.2rem; }
 
-/* --- SECCIÓN HERO (PORTADA) --- */
+/* --- SECCIÓN HERO (PORTADA) - ¡IMAGEN CORREGIDA SIN CAPA GRIS! --- */
 .hero {
-    background-image: url('images/hero-background.jpg'); /* ¡IMAGEN CORREGIDA! */
+    background-image: url('images/hero-background.jpg'); 
     background-size: cover;
     background-position: center;
     color: white;
     padding: 6rem 2rem;
     text-align: center;
-    position: relative;
+    position: relative; /* Mantenemos relative para el contenido */
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
+/* La capa oscura ha sido eliminada. Ahora el texto resalta con una sombra */
+.hero-content { 
+    position: relative; 
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
-
-.hero-content { position: relative; }
 .hero-content h2 { font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; }
 .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; }
 
@@ -79,7 +59,7 @@ nav a.active, nav a:hover { color: #e54d2e; }
 #category-filters button { background: none; border: 1px solid #ccc; border-radius: 20px; padding: 0.5rem 1rem; margin: 0 0.5rem; cursor: pointer; transition: all 0.3s ease; }
 #category-filters button.active, #category-filters button:hover { background-color: #e54d2e; color: white; border-color: #e54d2e; }
 
-/* --- ESTILOS PARA LA PÁGINA DEL CARRITO (¡DISEÑO MEJORADO!) --- */
+/* --- ESTILOS PARA LA PÁGINA DEL CARRITO --- */
 #cart-page-container { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
 .cart-item { display: grid; grid-template-columns: 80px 1fr auto auto auto; align-items: center; gap: 1rem; background: #fff; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 1rem; }
 .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
@@ -96,7 +76,7 @@ nav a.active, nav a:hover { color: #e54d2e; }
 #cart-summary h3 { text-align: center; margin-top: 0; margin-bottom: 1.5rem; }
 .total-row { display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
 
-/* --- ESTILOS PARA LA PÁGINA DE CHECKOUT (¡NUEVO!) --- */
+/* --- ESTILOS PARA LA PÁGINA DE CHECKOUT --- */
 .checkout-form { background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
 .form-group { margin-bottom: 1.5rem; }
 .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
@@ -104,7 +84,7 @@ nav a.active, nav a:hover { color: #e54d2e; }
 .form-row { display: flex; gap: 1rem; }
 .form-row .form-group { flex: 1; }
 
-/* --- PÁGINA DE GRACIAS (¡NUEVO!) --- */
+/* --- PÁGINA DE GRACIAS --- */
 .thank-you-container { text-align: center; background: #fff; padding: 4rem 2rem; border-radius: 10px; margin-top: 2rem; }
 .thank-you-container h2 { font-size: 2.5rem; color: #e54d2e; }
 
