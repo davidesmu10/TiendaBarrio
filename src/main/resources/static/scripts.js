@@ -23,13 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             allProducts = await response.json();
 
-            // Procesar y mostrar en la página correcta
-            if (productGrid) { // Estamos en la página de productos
+            if (productGrid) {
                 displayProducts(allProducts, productGrid);
-                extractAndDisplayCategories(allProducts); // Extraer categorías aquí
+                extractAndDisplayCategories(allProducts);
             }
-
-            // Procesar para la página de inicio
             if (featuredProductsContainer) {
                 displayProducts(allProducts.slice(0, 4), featuredProductsContainer);
             }
@@ -51,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
             productCard.innerHTML = `
-                <img src="${product.imagenUrl || 'https://via.placeholder.com/250'}" alt="${product.nombre}">
+                <img src="${product.imagenUrl || 'https://placehold.co/600x400/EFEFEF/333333?text=' + product.nombre}" alt="${product.nombre}">
                 <h3>${product.nombre}</h3>
                 <p>${product.descripcion || 'Descripción no disponible'}</p>
                 <div class="product-card-footer">
@@ -68,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function extractAndDisplayCategories(products) {
         if (!categoryFilters) return;
-
         const categoriesMap = new Map();
         products.forEach(product => {
             if (product.categoria) {
@@ -76,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         const uniqueCategories = Array.from(categoriesMap.values()).sort((a, b) => a.nombre.localeCompare(b.nombre));
-
         displayCategoryFilters(uniqueCategories);
     }
 
@@ -88,25 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
             button.dataset.categoryId = category.id;
             categoryFilters.appendChild(button);
         });
-
         categoryFilters.addEventListener('click', handleCategoryFilterClick);
     }
 
     function handleCategoryFilterClick(e) {
         if (e.target.tagName !== 'BUTTON') return;
-
         document.querySelectorAll('#category-filters button').forEach(btn => btn.classList.remove('active'));
         e.target.classList.add('active');
-
         const categoryId = e.target.dataset.categoryId;
         const filteredProducts = (categoryId === 'all')
             ? allProducts
             : allProducts.filter(p => p.categoria && p.categoria.id.toString() === categoryId);
-
         displayProducts(filteredProducts, productGrid);
     }
 
-    // --- LÓGICA DEL CARRITO ---
+    // --- LÓGICA DEL CARRITO (¡CORREGIDA!) ---
 
     function addCartButtonListeners(container) {
         container.querySelectorAll('.add-to-cart-btn').forEach(button => {
@@ -122,12 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!product) return;
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existingItem = cart.find(item => item.id === product.id);
+        const existingItem = cart.find(item => item.id.toString() === productId);
 
         if (existingItem) {
             existingItem.quantity++;
         } else {
-            cart.push({ ...product, quantity: 1 });
+            // ¡AQUÍ ESTÁ LA CORRECCIÓN! 
+            // Creamos un objeto con los nombres que el carrito espera (name, price, image).
+            const cartItem = {
+                id: product.id,
+                name: product.nombre, // <--- De 'nombre' a 'name'
+                price: product.precio, // <--- De 'precio' a 'price'
+                image: product.imagenUrl, // <--- De 'imagenUrl' a 'image'
+                quantity: 1
+            };
+            cart.push(cartItem);
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -148,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         notification.className = 'notification';
         notification.textContent = message;
         document.body.appendChild(notification);
-
         setTimeout(() => notification.classList.add('show'), 10);
         setTimeout(() => {
             notification.classList.remove('show');
