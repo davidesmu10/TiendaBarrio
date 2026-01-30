@@ -8,18 +8,18 @@ nav a { margin: 0 1rem; text-decoration: none; color: #555; font-weight: 500; tr
 nav a.active, nav a:hover { color: #e54d2e; }
 .cart-icon { font-size: 1.2rem; }
 
-/* --- SECCIÓN HERO (PORTADA) - ¡IMAGEN CORREGIDA SIN CAPA GRIS! --- */
+/* --- SECCIÓN HERO (PORTADA) - ¡IMAGEN CORREGIDA CON URL EXTERNA! --- */
 .hero {
-    background-image: url('images/hero-background.jpg'); 
+    /* Ahora apunta a una imagen externa de vegetales. ¡Esto solucionará el error 404! */
+    background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop'); 
     background-size: cover;
     background-position: center;
     color: white;
     padding: 6rem 2rem;
     text-align: center;
-    position: relative; /* Mantenemos relative para el contenido */
+    position: relative;
 }
 
-/* La capa oscura ha sido eliminada. Ahora el texto resalta con una sombra */
 .hero-content { 
     position: relative; 
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);

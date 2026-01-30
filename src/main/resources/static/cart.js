@@ -1,57 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Obtener todos los elementos necesarios del DOM
     const cartItemsContainer = document.getElementById('cart-items-container');
     const cartTotalElement = document.getElementById('cart-total');
     const emptyCartMessage = document.getElementById('empty-cart-message');
+    const cartSummary = document.getElementById('cart-summary'); // <<< ¡ELEMENTO CLAVE QUE FALTABA!
+    const cartCountElement = document.getElementById('cart-count');
 
+    // Cargar el carrito desde localStorage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     function renderCart() {
-        // Actualizar el contador del header en todas las páginas
+        // Actualizar el contador de ítems en el header
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const cartCountElement = document.getElementById('cart-count');
         if (cartCountElement) {
             cartCountElement.textContent = totalItems;
         }
 
-        // Lógica específica para la página del carrito
+        // Solo ejecutar la lógica de la página del carrito si estamos en ella
         if (cartItemsContainer) {
             if (cart.length === 0) {
-                emptyCartMessage.style.display = 'block';
-                cartItemsContainer.style.display = 'none';
-                cartTotalElement.parentElement.style.display = 'none';
+                // Si el carrito está vacío, mostrar mensaje y ocultar el resumen
+                if (emptyCartMessage) emptyCartMessage.style.display = 'block';
+                if (cartItemsContainer) cartItemsContainer.style.display = 'none';
+                if (cartSummary) cartSummary.style.display = 'none'; // <<< LÓGICA CORREGIDA
             } else {
-                emptyCartMessage.style.display = 'none';
-                cartItemsContainer.style.display = 'block';
+                // Si hay items, ocultar mensaje y mostrar el resumen y los productos
+                if (emptyCartMessage) emptyCartMessage.style.display = 'none';
+                if (cartItemsContainer) cartItemsContainer.style.display = 'grid';
+                if (cartSummary) cartSummary.style.display = 'block'; // <<< LÓGICA CORREGIDA
+                
                 cartItemsContainer.innerHTML = ''; // Limpiar antes de renderizar
 
                 cart.forEach(item => {
                     const itemElement = document.createElement('div');
                     itemElement.className = 'cart-item';
+                    // Usar la imagen correcta guardada en el carrito
                     itemElement.innerHTML = `
-                        <img src="${item.imagenUrl || 'https://via.placeholder.com/100'}" alt="${item.nombre}">
+                        <img src="${item.image}" alt="${item.name}">
                         <div class="item-details">
-                            <h3>${item.nombre}</h3>
-                            <p>Precio: $${item.precio.toFixed(2)}</p>
+                            <h3>${item.name}</h3>
                         </div>
                         <div class="item-quantity">
                             <button class="quantity-btn" data-id="${item.id}" data-change="-1">-</button>
                             <span>${item.quantity}</span>
                             <button class="quantity-btn" data-id="${item.id}" data-change="1">+</button>
                         </div>
-                        <div class="item-subtotal">
-                            <p>$${(item.precio * item.quantity).toFixed(2)}</p>
-                        </div>
-                        <button class="remove-btn" data-id="${item.id}">Eliminar</button>
+                        <p class="item-subtotal">$${(item.price * item.quantity).toFixed(2)}</p>
+                        <button class="remove-btn" data-id="${item.id}" title="Eliminar producto">&#10006;</button>
                     `;
                     cartItemsContainer.appendChild(itemElement);
                 });
 
                 // Calcular y mostrar el total
-                const total = cart.reduce((sum, item) => sum + item.precio * item.quantity, 0);
-                cartTotalElement.textContent = `$${total.toFixed(2)}`;
-                cartTotalElement.parentElement.style.display = 'block';
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                if (cartTotalElement) {
+                    cartTotalElement.textContent = `$${total.toFixed(2)}`;
+                }
 
-                // Añadir listeners a los botones
+                // Añadir listeners a los botones de cantidad y eliminar
                 addEventListeners();
             }
         }
@@ -74,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item) {
             item.quantity += change;
             if (item.quantity <= 0) {
+                // Si la cantidad llega a 0, eliminar el producto
                 cart = cart.filter(i => i.id.toString() !== productId);
             }
         }
